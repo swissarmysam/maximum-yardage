@@ -7,8 +7,10 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     // force to apply to jump
-    public float jumpForce = 125.0f;
+    public float jumpForce = 80.0f;
     public float forwardSpeed = 3.0f;
+    public float slideTime = 0.5f;
+
     private Rigidbody2D playerRigidBody;
 
     // variables for groundCheck for animation transition
@@ -36,6 +38,11 @@ public class PlayerController : MonoBehaviour
     public Button mainMenuBtn;
     public Button quitBtn;
 
+    // touch handlers
+    private Vector3 firstTouch;
+    private Vector3 lastTouch;
+    private float dragDistance;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -50,18 +57,61 @@ public class PlayerController : MonoBehaviour
 
         // see if jump action was made
         bool jumpActive = Input.GetButton("Fire1");
-        // prevent jump action if player is stunned
+        // see if slide action was made
+        bool slideActive = Input.GetButton("Fire2");
+        //bool slideActive = false;
+        // prevent actions if player is stunned
         jumpActive = jumpActive && !isStunned;
+        slideActive = slideActive && !isStunned;
+
+        if(Input.touchCount == 1)
+        {
+            Touch touch = Input.GetTouch(0);
+
+            if(touch.phase == TouchPhase.Began)
+            {
+                firstTouch = touch.position;
+                lastTouch = touch.position;
+            }
+            else if (touch.phase == TouchPhase.Moved)
+            {
+                lastTouch = touch.position;
+            }
+            else if (touch.phase == TouchPhase.Ended)
+            {
+                lastTouch = touch.position;
+
+                if(Mathf.Abs(lastTouch.x - firstTouch.x) > dragDistance)
+                {
+                    if(lastTouch.x > firstTouch.x)
+                    {
+                        slideActive = true;
+                    } else
+                    {
+                        slideActive = false;
+                    }
+                }
+            }
+        } 
 
         // jump is only registered if the player isGrounded - prevents jump from being held down
         if (jumpActive && isGrounded)
         {
             // limit the amount of velocity added to the jump
-            if(playerRigidBody.velocity.y <= 10)
+            if(playerRigidBody.velocity.y <= 8)
             {
                 playerRigidBody.AddForce(new Vector2(0, jumpForce));
             }
         }
+
+        if (slideActive && isGrounded)
+        {
+            playerAnimator.SetBool("isSliding", true);
+        } 
+        else
+        {
+            playerAnimator.SetBool("isSliding", false);
+        } 
 
         // if the player is not stunned then move forward
         if(!isStunned)
@@ -73,7 +123,7 @@ public class PlayerController : MonoBehaviour
             // update yardsRun
             yardsRun += multiplier * Time.deltaTime;
             // update text and limit to one decimal point on display
-            yardsRunLabel.text = yardsRun.ToString("F1");
+            yardsRunLabel.text = yardsRun.ToString("00000");
             // Debug.Log(yardsRun);
         }
 

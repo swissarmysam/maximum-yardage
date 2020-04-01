@@ -11,28 +11,17 @@ public class EnemyScript : MonoBehaviour
 
     public float enemyMinSpeed = 2.0f;
     public float enemyMaxSpeed = 6.0f;
-    public float enemySpeed;
-    public float enemyJumpForce = 20.0f;
-    
-    public float actionInterval = 0.5f;
-    private bool isJumping = false;
-    private bool isSliding = false;
-    private float timeUntilNextAction;
+    private float enemySpeed;
 
     public Sprite enemySprite;
-    private Collider2D enemyCollider;
-    private SpriteRenderer enemyRenderer;
 
     // Start is called before the first frame update
     void Start()
     {
 
-        // references to collider and renderer so adjustments can be made to properties whilst active
-        enemyCollider = gameObject.GetComponent<Collider2D>();
-        enemyRenderer = gameObject.GetComponent<SpriteRenderer>();
         // set speed for each instantiated enemy object
         enemySpeed = Random.Range(enemyMinSpeed, enemyMaxSpeed); 
-        Debug.Log(enemySpeed);
+        //Debug.Log(enemySpeed);
         
     }
 
