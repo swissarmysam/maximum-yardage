@@ -85,15 +85,19 @@ public class PlayerController : MonoBehaviour
         bool jumpDetected = Input.mousePosition.x < screenWidth;
         bool slideDetected = Input.mousePosition.x > screenWidth;
 
-        if (inputDetected)
+        // whilst the player is alive - increment counters
+        if (!isStunned)
         {
-            if (jumpDetected)
+            if (inputDetected)
             {
-                jumps++;
-            } 
-            else if (slideDetected)
-            {
-                slides++;
+                if (jumpDetected)
+                {
+                    jumps++;
+                }
+                else if (slideDetected)
+                {
+                    slides++;
+                }
             }
         }
     }
@@ -159,7 +163,6 @@ public class PlayerController : MonoBehaviour
 
         if(isStunned && isGrounded)
         {
-            GetComponent<ScoreScript>().SaveScore();
             restartGameBtn.gameObject.SetActive(true);
             mainMenuBtn.gameObject.SetActive(true);
             statsPanel.gameObject.SetActive(true);
@@ -177,6 +180,8 @@ public class PlayerController : MonoBehaviour
             {
                 bestYardsText.text = yardsRun.ToString("00000");
                 messageText.text = "*** NEW HI SCORE ***";
+                // only save score if it beats previous hiscore
+                GetComponent<ScoreScript>().SaveScore(); 
             }
             
         }
