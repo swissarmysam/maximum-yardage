@@ -142,7 +142,7 @@ public class GeneratorScript : MonoBehaviour
                 addRooms = false;
             }
 
-            // if the room is past the removeRoomX poin then it can be added to list for removal
+            // if the room is past the removeRoomX point then it can be added to list for removal
             if(roomEndX < removeRoomX)
             {
                 roomsToRemove.Add(room);

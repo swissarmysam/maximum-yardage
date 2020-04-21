@@ -437,6 +437,12 @@ PrefabInstance:
       propertyPath: m_Color.b
       value: 0.2524475
       objectReference: {fileID: 0}
+    - target: {fileID: 841807911715421039, guid: b7f96d023782a7e41946117b3f621aa4,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 5cd8e037176ae324a8d8c18eabfd7ce0,
+        type: 3}
     - target: {fileID: 841807910308479468, guid: b7f96d023782a7e41946117b3f621aa4,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
