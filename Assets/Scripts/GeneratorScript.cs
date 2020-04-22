@@ -11,6 +11,18 @@ public class GeneratorScript : MonoBehaviour
     public List<GameObject> currentRooms;
     private float screenWidth;
 
+    // array for storing objects that can be generated - enemies, bucks and PUPs
+    public GameObject[] availableObjects;
+    // list will store instanced objects
+    public List<GameObject> objects;
+
+    // used to control distance range between objects
+    public float objectsMinDistance = 5.0f;
+    public float objectsMaxDistance = 10.0f;
+
+    // used to set min or max height of the object
+    public float objectsMinY = -1.4f;
+    public float objectsMaxY = 1.4f;
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +39,61 @@ public class GeneratorScript : MonoBehaviour
     void Update()
     {
         
+    }
+
+    void AddObject(float lastObjectX)
+    {
+        // generate random index for selection from array
+        int randomIdx = Random.Range(0, availableObjects.Length);
+        // create an instance of the randomly selected object
+        GameObject obj = (GameObject)Instantiate(availableObjects[randomIdx]);
+        // get random values to spawn object on x axis and y axis
+        float objectPositionX = lastObjectX + Random.Range(objectsMinDistance, objectsMaxDistance);
+        float objectY = Random.Range(objectsMinY, objectsMaxY);
+        // set object position using random values
+        obj.transform.position = new Vector3(objectPositionX, objectY, 0);
+
+        // add the object to the world
+        objects.Add(obj);
+    }
+
+    void GenerateObjectsAsNeeded()
+    {
+        // calculate pixels ahead and behind player
+        float playerX = transform.position.x;
+        float removeObjectsX = playerX - screenWidth;
+        float addObjectX = playerX + screenWidth;
+        float farthestObjectX = 0;
+
+        //
+        List<GameObject> objectsToRemove = new List<GameObject>();
+        foreach (var obj in objects)
+        {
+            // the position of the object
+            float objX = obj.transform.position.x;
+            //
+            farthestObjectX = Mathf.Max(farthestObjectX, objX);
+            //
+            if (objX < removeObjectsX)
+            {
+                objectsToRemove.Add(obj);
+            }
+        }
+
+        //
+        foreach(var obj in objectsToRemove)
+        {
+            objects.Remove(obj);
+            // Destroy(obj);
+        }
+
+        //
+        if(farthestObjectX < addObjectX)
+        {
+            AddObject(farthestObjectX);
+        }
+
+
     }
 
     void AddRoom(float farthestRoomEndX)
@@ -47,7 +114,7 @@ public class GeneratorScript : MonoBehaviour
 
     }
 
-    private void GenerateRoomAsNeeded()
+    void GenerateRoomAsNeeded()
     {
         // create list for rooms to be removed
         List<GameObject> roomsToRemove = new List<GameObject>();
@@ -75,7 +142,7 @@ public class GeneratorScript : MonoBehaviour
                 addRooms = false;
             }
 
-            // if the room is past the removeRoomX poin then it can be added to list for removal
+            // if the room is past the removeRoomX point then it can be added to list for removal
             if(roomEndX < removeRoomX)
             {
                 roomsToRemove.Add(room);
@@ -90,7 +157,8 @@ public class GeneratorScript : MonoBehaviour
         foreach(var room in roomsToRemove)
         {
             currentRooms.Remove(room);
-            Destroy(room);
+            // if issues with APK build then Destroy(room) line can be commented out
+            // Destroy(room);
         }
 
         // this will be true if a room is not detected near level end so a new room will be added at end of level
@@ -105,6 +173,7 @@ public class GeneratorScript : MonoBehaviour
         while(true)
         {
             GenerateRoomAsNeeded();
+            GenerateObjectsAsNeeded();
             // add pause before executing room check again
             yield return new WaitForSeconds(0.25f);
         }
