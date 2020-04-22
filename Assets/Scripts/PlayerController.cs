@@ -65,7 +65,10 @@ public class PlayerController : MonoBehaviour
     // see if jump action was made
     private bool jumpActive; 
     // see if slide action was made
-    bool slideActive; 
+    bool slideActive;
+
+    // store player rigidbody position in previous frame
+    private float lastPositionX;
 
     // Start is called before the first frame update
     void Start()
@@ -100,6 +103,20 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
+
+        // workaround for player position sticking - current x and y positions for frame
+        float currentPositionX = playerRigidBody.transform.position.x;
+        float currentPositionY = playerRigidBody.transform.position.y;
+
+        // if current X is the same as last X - therefore stuck
+        if (currentPositionX == lastPositionX)
+        {
+            // keep the x position the same but just bump the y to get over the collider edge
+            playerRigidBody.position = new Vector2(currentPositionX, currentPositionY + 0.01f);
+        }
+
+        // record current x position as last x position after update
+        lastPositionX = currentPositionX;
     }
 
     void FixedUpdate()
@@ -150,6 +167,7 @@ public class PlayerController : MonoBehaviour
             yardsRun += multiplier * Time.deltaTime;
             // update text and zerofill 
             yardsRunLabel.text = yardsRun.ToString("00000");
+
 
         }
 
