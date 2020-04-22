@@ -121,15 +121,11 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (slideActive && isGrounded)
+        if (slideActive && isGrounded && !jumpActive)
         {
             playerAnimator.SetBool("isSliding", true);
-            // playerCollider.size = new Vector2(0.87f, 0.41f);
-            // playerCollider.offset = new Vector2(0f, -1.15f);
-            // Debug.Log("Sliding");
-            // Debug.Log(playerCollider.size);
-            // Debug.Log(playerCollider.offset);
-
+            playerCollider.size = new Vector2(0.87f, 0.41f);
+            playerCollider.offset = new Vector2(0f, -0.88f);
         } 
         else
         {
@@ -143,11 +139,12 @@ public class PlayerController : MonoBehaviour
             newVelocity.x = forwardSpeed;
             playerRigidBody.velocity = newVelocity;
 
-           // playerCollider.size = new Vector2(0.6f, 1.68f);
-           // playerCollider.offset = new Vector2(0f, 0.2f);
-           // Debug.Log("Running/Jumping");
-            //Debug.Log(playerCollider.size);
-           // Debug.Log(playerCollider.offset);
+            if (!slideActive)
+            {
+                playerCollider.size = new Vector2(0.6f, 1.68f);
+                playerCollider.offset = new Vector2(0f, -0.25f);
+            }
+
 
             // update yardsRun
             yardsRun += multiplier * Time.deltaTime;
@@ -197,7 +194,7 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        HitByEnemy(collider);
+       // HitByEnemy(collider);
     }
 
     void HitByEnemy(Collider2D enemyCollider)
