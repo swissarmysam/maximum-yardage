@@ -181,7 +181,7 @@ public class PlayerController : MonoBehaviour
             restartGameBtn.gameObject.SetActive(true);
             mainMenuBtn.gameObject.SetActive(true);
             statsPanel.gameObject.SetActive(true);
-            quitBtn.gameObject.SetActive(true);
+            // quitBtn.gameObject.SetActive(true);
             maxYards.text = yardsRun.ToString("00000");
             jumpsText.text = jumps.ToString("00000");
             slidesText.text = slides.ToString("00000");
@@ -212,7 +212,7 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-       // HitByEnemy(collider);
+       HitByEnemy(collider);
     }
 
     void HitByEnemy(Collider2D enemyCollider)

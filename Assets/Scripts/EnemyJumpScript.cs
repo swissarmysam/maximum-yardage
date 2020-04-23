@@ -9,7 +9,7 @@ public class EnemyJumpScript : MonoBehaviour
     public float enemyMaxSpeed = 6.0f;
     private float enemySpeed;
 
-    public float enemyMinJumpForce = 50.0f;
+    public float enemyMinJumpForce = 75.0f;
     public float enemyMaxJumpForce = 200.0f;
     private float enemyJump;
 
@@ -24,6 +24,7 @@ public class EnemyJumpScript : MonoBehaviour
     // set componenets to control velocity/force and animator state
     private Rigidbody2D enemyRigidBody;
     private Animator enemyAnimator;
+    private BoxCollider2D enemyCollider;
 
 
     // Start is called before the first frame update
@@ -32,6 +33,7 @@ public class EnemyJumpScript : MonoBehaviour
         // get componenets to control velocity/force and animator state
         enemyRigidBody = GetComponent<Rigidbody2D>();
         enemyAnimator = GetComponent<Animator>();
+        enemyCollider = GetComponent<BoxCollider2D>();
 
         // set random interval for jumping action 
         actionInterval = Random.Range(actionMinInterval, actionMaxInterval);
@@ -58,16 +60,23 @@ public class EnemyJumpScript : MonoBehaviour
 
             if (isJumping)
             {
-                // cahnge jumping animation and add jumping force
+                // change jumping animation and add jumping force
                 enemyAnimator.SetBool("isJumping", true);
                 enemyRigidBody.AddForce(new Vector2(0F, enemyJump));
-                // Debug.Log(enemyJump);
+
+                // redefine collider for jump animation here
+                enemyCollider.offset = new Vector2(0.15f, 0.26f);
+                enemyCollider.size = new Vector2(0.6f, 0.6f);
             }
             else
             {
                 // change back to running animation
                 enemyAnimator.SetBool("isJumping", false);
                 enemyRigidBody.velocity = new Vector2(0f, 0f);
+
+                // redefine collider for running animation here
+                enemyCollider.offset = new Vector2(0.15f, 0f);
+                enemyCollider.size = new Vector2(0.6f, 1.6f);
             }
             // reset timer
             timeUntilNextAction = actionInterval;
@@ -75,7 +84,6 @@ public class EnemyJumpScript : MonoBehaviour
 
         // make enemy run towards player at random speed
        enemyRigidBody.velocity = new Vector2(-enemySpeed, 0f);
-
 
     }
 }

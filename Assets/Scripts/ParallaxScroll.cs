@@ -6,9 +6,11 @@ public class ParallaxScroll : MonoBehaviour
 {
 
     public Renderer background;
+    public Renderer midground;
     public Renderer foreground;
 
     public float backgroundSpeed = 0.02f;
+    public float midgroundSpeed = 0.04f;
     public float foregroundSpeed = 0.06f;
 
     public float offset = 0.0f;
@@ -25,9 +27,11 @@ public class ParallaxScroll : MonoBehaviour
 
         float backgroundOffset = offset * backgroundSpeed;
         float foregroundOffset = offset * foregroundSpeed;
+        float midgroundOffset = offset * midgroundSpeed;
 
         background.material.mainTextureOffset = new Vector2(backgroundOffset, 0);
         foreground.material.mainTextureOffset = new Vector2(foregroundOffset, 0);
+        midground.material.mainTextureOffset = new Vector2(midgroundOffset, 0);
         
     }
 }
