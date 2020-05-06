@@ -8,12 +8,30 @@ public class PlayerController : MonoBehaviour
 {
     // force to apply to jump
     [SerializeField]
-    private float jumpForce = 80.0f;
+    private float jumpForce = 125.0f;
     [SerializeField]
-    private float forwardSpeed = 3.0f;
+    private float forwardSpeed = 3.5f;
+    private float maxSpeed = 7.5f;
+    private float acceleration = 0.1f;
 
     private Rigidbody2D playerRigidBody;
     private BoxCollider2D playerCollider;
+
+
+    private AudioSource playerAudio;
+    [SerializeField]
+    private AudioClip impact;
+    [SerializeField]
+    private AudioClip running;
+    [SerializeField]
+    private AudioClip jump;
+    [SerializeField]
+    private AudioClip pain;
+    [SerializeField]
+    private AudioClip skid;
+    [SerializeField]
+    private AudioClip landing;
+
 
     // variables for groundCheck for animation transition
     // this will store a reference to the groundCheck child object
@@ -74,6 +92,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
 
+        playerAudio = GetComponent<AudioSource>();
         playerRigidBody = GetComponent<Rigidbody2D>();
         playerAnimator = GetComponent<Animator>();
         playerCollider = GetComponent<BoxCollider2D>();
@@ -131,6 +150,13 @@ public class PlayerController : MonoBehaviour
         // jump is only registered if the player isGrounded - prevents jump from being held down
         if (jumpActive && isGrounded)
         {
+            playerAudio.Stop();
+            if (!playerAudio.isPlaying)
+            {
+                playerAudio.PlayOneShot(jump, 0.5f);
+            }
+
+
             // limit the amount of velocity added to the jump
             if(playerRigidBody.velocity.y <= 8)
             {
@@ -140,6 +166,13 @@ public class PlayerController : MonoBehaviour
 
         if (slideActive && isGrounded && !jumpActive)
         {
+            if (!playerAudio.isPlaying)
+            {
+                playerAudio.Stop();
+                playerAudio.PlayOneShot(skid, 0.5f);
+            }
+
+            // set size of collider whilst sliding
             playerAnimator.SetBool("isSliding", true);
             playerCollider.size = new Vector2(0.87f, 0.41f);
             playerCollider.offset = new Vector2(0f, -0.88f);
@@ -152,12 +185,24 @@ public class PlayerController : MonoBehaviour
         // if the player is not stunned then move forward
         if(!isStunned)
         {
+            if(!playerAudio.isPlaying)
+            {
+                playerAudio.clip = running;
+                playerAudio.Play();
+            }
+
             Vector2 newVelocity = playerRigidBody.velocity;
+            if(forwardSpeed < maxSpeed)
+            {
+                forwardSpeed += acceleration * Time.deltaTime;
+            }
             newVelocity.x = forwardSpeed;
             playerRigidBody.velocity = newVelocity;
+            // Debug.Log(forwardSpeed);
 
             if (!slideActive)
             {
+                // reset collider to starting size
                 playerCollider.size = new Vector2(0.6f, 1.68f);
                 playerCollider.offset = new Vector2(0f, -0.25f);
             }
@@ -219,6 +264,11 @@ public class PlayerController : MonoBehaviour
     {
         isStunned = true;
         playerAnimator.SetBool("isStunned", true);
+        // stop any jump, skid or running sounds
+        playerAudio.Stop();
+        // play impact and pain sounds
+        playerAudio.PlayOneShot(impact, 0.5f);
+        playerAudio.PlayOneShot(pain, 0.5f);
     }
 
     public void RestartGame()
