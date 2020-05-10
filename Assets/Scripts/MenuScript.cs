@@ -27,6 +27,7 @@ public class MenuScript : MonoBehaviour
         if(PlayerPrefs.GetString("musicStatus") == "on")
         {
             menuAudio.Play();
+            menuAudio.volume = 0.252f;
         }
 
         StartCoroutine(StatusChecks());
@@ -76,6 +77,7 @@ public class MenuScript : MonoBehaviour
             if(!menuAudio.isPlaying)
             {
                 menuAudio.Play();
+                menuAudio.volume = 0.252f;
             }
         }
         else
@@ -86,6 +88,7 @@ public class MenuScript : MonoBehaviour
             if(menuAudio.isPlaying)
             {
                 menuAudio.Stop();
+                menuAudio.volume = 0f;
             }
         }
     }
