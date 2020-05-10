@@ -11,13 +11,15 @@ public class PlayerController : MonoBehaviour
     private float jumpForce = 125.0f;
     [SerializeField]
     private float forwardSpeed = 3.5f;
+    [SerializeField]
     private float maxSpeed = 7.5f;
     private float acceleration = 0.1f;
 
+    // get player object and collider 
     private Rigidbody2D playerRigidBody;
     private BoxCollider2D playerCollider;
 
-
+    // get audio source for player sounds and create serialize fields for sound clips
     private AudioSource playerAudio;
     [SerializeField]
     private AudioClip impact;
@@ -55,6 +57,7 @@ public class PlayerController : MonoBehaviour
     private float multiplier = 2.0f;
     public Text yardsRunLabel;
 
+    // variables to store stats
     private uint jumps = 0;
     private uint slides = 0;
 
@@ -96,9 +99,17 @@ public class PlayerController : MonoBehaviour
         playerRigidBody = GetComponent<Rigidbody2D>();
         playerAnimator = GetComponent<Animator>();
         playerCollider = GetComponent<BoxCollider2D>();
+        // get half width for screen press recognition
         screenWidth = Screen.width / 2.0f;
         hiscore = PlayerPrefs.GetFloat("hiscore");
 
+        if(PlayerPrefs.GetString("fxStatus") == "off")
+        {
+            AudioListener.volume = 0f;
+        } else
+        {
+            AudioListener.volume = 1f;
+        }
     }
 
     private void Update()
@@ -191,6 +202,7 @@ public class PlayerController : MonoBehaviour
                 playerAudio.Play();
             }
 
+            //
             Vector2 newVelocity = playerRigidBody.velocity;
             if(forwardSpeed < maxSpeed)
             {

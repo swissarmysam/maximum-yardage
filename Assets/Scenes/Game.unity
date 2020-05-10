@@ -533,36 +533,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 199060685}
   m_CullTransparentMesh: 0
---- !u!1 &226782161
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 226782162}
-  m_Layer: 0
-  m_Name: PUP
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &226782162
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 226782161}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &282402985
 GameObject:
   m_ObjectHideFlags: 0
@@ -1449,7 +1419,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -30, y: -15}
-  m_SizeDelta: {x: 350, y: 90}
+  m_SizeDelta: {x: 302.94, y: 90}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &749619790
 MonoBehaviour:
@@ -2431,6 +2401,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpForce: 125
   forwardSpeed: 3.5
+  maxSpeed: 8.5
   impact: {fileID: 8300000, guid: c3df44487e691ed42871609a0f0f37cc, type: 3}
   running: {fileID: 8300000, guid: bfd2c19bb1d77604d85208502bf2ebd6, type: 3}
   jump: {fileID: 8300000, guid: f1890fd3cc6144a4faa271fa9e2e068c, type: 3}
@@ -2482,7 +2453,7 @@ MonoBehaviour:
   objects: []
   objectsMinDistance: 8
   objectsMaxDistance: 20
-  objectsMinY: -1.5
+  objectsMinY: -1.6
   objectsMaxY: -1.7
 --- !u!95 &1539450091
 Animator:

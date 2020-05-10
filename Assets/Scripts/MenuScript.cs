@@ -17,9 +17,18 @@ public class MenuScript : MonoBehaviour
     [SerializeField]
     private Text musicOn;
 
+    private AudioSource menuAudio;
+
     // Start is called before the first frame update
     void Start()
     {
+        menuAudio = GetComponent<AudioSource>();
+
+        if(PlayerPrefs.GetString("musicStatus") == "on")
+        {
+            menuAudio.Play();
+        }
+
         StartCoroutine(StatusChecks());
     }
 
@@ -43,7 +52,7 @@ public class MenuScript : MonoBehaviour
         {
             soundOff.color = new Color32(77, 77, 77, 255);
             soundOn.color = new Color32(255, 0, 0, 255);
-
+            
             // play fx
         }
         else
@@ -51,6 +60,7 @@ public class MenuScript : MonoBehaviour
             // dont play fx
             soundOn.color = new Color32(77, 77, 77, 255);
             soundOff.color = new Color32(255, 0, 0, 255);
+            
         }
     }
 
@@ -62,14 +72,21 @@ public class MenuScript : MonoBehaviour
         {
             musicOff.color = new Color32(77, 77, 77, 255);
             musicOn.color = new Color32(255, 0, 0, 255);
-
             // play fx
+            if(!menuAudio.isPlaying)
+            {
+                menuAudio.Play();
+            }
         }
         else
         {
             // dont play fx
             musicOn.color = new Color32(77, 77, 77, 255);
             musicOff.color = new Color32(255, 0, 0, 255);
+            if(menuAudio.isPlaying)
+            {
+                menuAudio.Stop();
+            }
         }
     }
 

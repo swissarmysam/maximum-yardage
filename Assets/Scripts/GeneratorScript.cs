@@ -35,12 +35,6 @@ public class GeneratorScript : MonoBehaviour
         StartCoroutine(GeneratorCheck());
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     void AddObject(float lastObjectX)
     {
         // generate random index for selection from array
@@ -71,9 +65,9 @@ public class GeneratorScript : MonoBehaviour
         {
             // the position of the object
             float objX = obj.transform.position.x;
-            //
+            // 
             farthestObjectX = Mathf.Max(farthestObjectX, objX);
-            //
+            // add object to list of objects to be removed
             if (objX < removeObjectsX)
             {
                 objectsToRemove.Add(obj);
@@ -87,7 +81,7 @@ public class GeneratorScript : MonoBehaviour
             // Destroy(obj);
         }
 
-        //
+        // if furthest object is less than add object constrain then add object
         if(farthestObjectX < addObjectX)
         {
             AddObject(farthestObjectX);
