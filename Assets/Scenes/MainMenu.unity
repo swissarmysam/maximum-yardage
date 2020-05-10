@@ -371,6 +371,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 1.1601562
       objectReference: {fileID: 0}
+    - target: {fileID: 7359070178925466735, guid: b7f96d023782a7e41946117b3f621aa4,
+        type: 3}
+      propertyPath: m_Text
+      value: Slide by tap and holding right half of screen
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b7f96d023782a7e41946117b3f621aa4, type: 3}
 --- !u!1001 &1423313090215962854
