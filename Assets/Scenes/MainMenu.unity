@@ -374,7 +374,22 @@ PrefabInstance:
     - target: {fileID: 7359070178925466735, guid: b7f96d023782a7e41946117b3f621aa4,
         type: 3}
       propertyPath: m_Text
-      value: Slide by tap and holding right half of screen
+      value: Slide by tapping and then holding right half of screen
+      objectReference: {fileID: 0}
+    - target: {fileID: 4673033931907493126, guid: b7f96d023782a7e41946117b3f621aa4,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 33.30005
+      objectReference: {fileID: 0}
+    - target: {fileID: 4673033931907493126, guid: b7f96d023782a7e41946117b3f621aa4,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -38.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4673033931907493126, guid: b7f96d023782a7e41946117b3f621aa4,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 732.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b7f96d023782a7e41946117b3f621aa4, type: 3}

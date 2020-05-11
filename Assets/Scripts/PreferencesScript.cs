@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class PreferencesScript : MonoBehaviour
 {
+
+    /// <summary>
+    /// Script to set player preferences for audio and also allow hiscore to be reset - attached to buttons in settings screen in main menu scene
+    /// </summary>
+   
     public void SetSoundFxPreference()
     {
         string toggle = PlayerPrefs.GetString("fxStatus");
@@ -15,7 +20,6 @@ public class PreferencesScript : MonoBehaviour
         {
             PlayerPrefs.SetString("fxStatus", "off");
         }
-        Debug.Log(PlayerPrefs.GetString("fxStatus"));
     }
 
     public void SetMusicPreference()
@@ -24,11 +28,11 @@ public class PreferencesScript : MonoBehaviour
         if(toggle == "off")
         {
             PlayerPrefs.SetString("musicStatus", "on");
-        } else
+        } 
+        else
         {
             PlayerPrefs.SetString("musicStatus", "off");
         }
-        Debug.Log(PlayerPrefs.GetString("musicStatus"));
     }
 
     public void ResetHiscore()

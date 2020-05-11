@@ -5,6 +5,7 @@ using UnityEngine;
 public class CameraFollow : MonoBehaviour
 {
 
+    // player object and var to store distance between camera and player
     public GameObject targetObj;
     private float distToTarget;
 
@@ -20,8 +21,8 @@ public class CameraFollow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        // get x co-ordinate of target object (player) and move camera to that position
+       
+        // get x co-ordinate of target object (player) and move camera to that position so it follows player
         float targetObjX = targetObj.transform.position.x;
         Vector3 newCamPos = transform.position;
         newCamPos.x = targetObjX + distToTarget;

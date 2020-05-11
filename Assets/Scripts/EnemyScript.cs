@@ -5,24 +5,23 @@ using UnityEngine;
 public class EnemyScript : MonoBehaviour
 {
 
-    // Set sprites for the two action states that enemy can have
-    // public Sprite enemyJump;
-    // public Sprite enemySlide;
+    /// <summary>
+    /// EnemyScript is attached to enemy prefab which is then instantiated by GeneratorScript
+    /// </summary>
 
+    // set upper and lower constraints for running speed
     public float enemyMinSpeed = 2.0f;
     public float enemyMaxSpeed = 6.0f;
     private float enemySpeed;
 
+    // var for enemy sprite
     public Sprite enemySprite;
 
     // Start is called before the first frame update
     void Start()
     {
-
         // set speed for each instantiated enemy object
         enemySpeed = Random.Range(enemyMinSpeed, enemyMaxSpeed); 
-        //Debug.Log(enemySpeed);
-        
     }
 
     // Update is called once per frame

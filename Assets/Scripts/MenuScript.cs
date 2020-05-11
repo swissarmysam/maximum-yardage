@@ -6,6 +6,11 @@ using UnityEngine.UI;
 public class MenuScript : MonoBehaviour
 {
 
+    /// <summary>
+    /// script to control audio playing in menus, alter visual side of audio preferences and display hiscore
+    /// </summary>
+
+    // variables to store elements for displaying score and audio text toggle statuses
     [SerializeField]
     private Text ScoreText;
     [SerializeField]
@@ -22,25 +27,22 @@ public class MenuScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // get audio source for playing clip
         menuAudio = GetComponent<AudioSource>();
 
+        // start music if preference is on and reset volume
         if(PlayerPrefs.GetString("musicStatus") == "on")
         {
             menuAudio.Play();
-            menuAudio.volume = 0.252f;
+            AudioListener.volume = 0.252f;
         }
 
         StartCoroutine(StatusChecks());
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     void UpdateHiscore()
     {
+        // check for changes to hiscore and update if necessary
         ScoreText.text = PlayerPrefs.GetFloat("hiscore").ToString("00000");
     }
 
@@ -51,16 +53,16 @@ public class MenuScript : MonoBehaviour
 
         if (toggle == "on")
         {
-            soundOff.color = new Color32(77, 77, 77, 255);
-            soundOn.color = new Color32(255, 0, 0, 255);
-            
-            // play fx
+            // play fx and change toggle status
+            soundOff.color = new Color32(77, 77, 77, 255); // grey
+            soundOn.color = new Color32(255, 0, 0, 255); // red
+
         }
         else
         {
-            // dont play fx
-            soundOn.color = new Color32(77, 77, 77, 255);
-            soundOff.color = new Color32(255, 0, 0, 255);
+            // dont play fx and change toggle status
+            soundOn.color = new Color32(77, 77, 77, 255); // grey
+            soundOff.color = new Color32(255, 0, 0, 255); // red
             
         }
     }
@@ -71,28 +73,23 @@ public class MenuScript : MonoBehaviour
 
         if (toggle == "on")
         {
-            musicOff.color = new Color32(77, 77, 77, 255);
-            musicOn.color = new Color32(255, 0, 0, 255);
-            // play fx
-            if(!menuAudio.isPlaying)
-            {
-                menuAudio.Play();
-                menuAudio.volume = 0.252f;
-            }
+            // play music and change toggle statu, set volume
+            musicOff.color = new Color32(77, 77, 77, 255); // grey
+            musicOn.color = new Color32(255, 0, 0, 255); // red
+            menuAudio.volume = 0.252f;
+            
         }
         else
         {
-            // dont play fx
-            musicOn.color = new Color32(77, 77, 77, 255);
-            musicOff.color = new Color32(255, 0, 0, 255);
-            if(menuAudio.isPlaying)
-            {
-                menuAudio.Stop();
-                menuAudio.volume = 0f;
-            }
+            // dont play fx and change toggle status, turn down volume
+            musicOn.color = new Color32(77, 77, 77, 255); // grey
+            musicOff.color = new Color32(255, 0, 0, 255); // red
+            menuAudio.volume = 0f;
+
         }
     }
 
+    // set up for constantly checking changes to audio preferences or hiscore
     private IEnumerator StatusChecks()
     {
         while (true)

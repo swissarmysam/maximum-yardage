@@ -5,6 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class LoadSceneOnClick : MonoBehaviour
 {
+
+    /// <summary>
+    /// Scene handler for main menu and game scenes
+    /// </summary>
+    /// <param name="sceneName"></param>
    
     public void LoadScene(string sceneName)
     {

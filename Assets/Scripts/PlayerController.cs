@@ -6,6 +6,10 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
+    /// <summary>
+    /// Script that controls player movement, physics, colliders, audio and scores
+    /// </summary>
+
     // force to apply to jump
     [SerializeField]
     private float jumpForce = 125.0f;
@@ -31,9 +35,6 @@ public class PlayerController : MonoBehaviour
     private AudioClip pain;
     [SerializeField]
     private AudioClip skid;
-    [SerializeField]
-    private AudioClip landing;
-
 
     // variables for groundCheck for animation transition
     // this will store a reference to the groundCheck child object
@@ -94,7 +95,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        // get components for player elements that need to be edited during game
         playerAudio = GetComponent<AudioSource>();
         playerRigidBody = GetComponent<Rigidbody2D>();
         playerAnimator = GetComponent<Animator>();
@@ -121,6 +122,7 @@ public class PlayerController : MonoBehaviour
         // whilst the player is alive - increment counters
         if (!isStunned)
         {
+            // if the screen is tapped
             if (inputDetected)
             {
                 if (jumpDetected)
@@ -196,13 +198,14 @@ public class PlayerController : MonoBehaviour
         // if the player is not stunned then move forward
         if(!isStunned)
         {
+            // play running sound 
             if(!playerAudio.isPlaying)
             {
                 playerAudio.clip = running;
                 playerAudio.Play();
             }
 
-            //
+            // gradually increaase speed of player movement
             Vector2 newVelocity = playerRigidBody.velocity;
             if(forwardSpeed < maxSpeed)
             {
@@ -233,16 +236,18 @@ public class PlayerController : MonoBehaviour
 
         parallax.offset = transform.position.x;
 
+        // if player is dead and on the ground
         if(isStunned && isGrounded)
         {
+            // make buttons visible and set stats text from var values
             restartGameBtn.gameObject.SetActive(true);
             mainMenuBtn.gameObject.SetActive(true);
             statsPanel.gameObject.SetActive(true);
-            // quitBtn.gameObject.SetActive(true);
             maxYards.text = yardsRun.ToString("00000");
             jumpsText.text = jumps.ToString("00000");
             slidesText.text = slides.ToString("00000");
             
+            // if hiscore was not beaten
             if(yardsRun <= hiscore)
             {
                 bestYardsText.text = hiscore.ToString("00000");
@@ -274,6 +279,7 @@ public class PlayerController : MonoBehaviour
 
     void HitByEnemy(Collider2D enemyCollider)
     {
+        // change player status to stunned and play animation
         isStunned = true;
         playerAnimator.SetBool("isStunned", true);
         // stop any jump, skid or running sounds
@@ -291,11 +297,6 @@ public class PlayerController : MonoBehaviour
     public void LoadMainMenu()
     {
         SceneManager.LoadScene("MainMenu");
-    }
-
-    public void QuitGame()
-    {
-        Application.Quit();
     }
 
 }

@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class EnemyJumpScript : MonoBehaviour
 {
-
+    // set upper and lower limit for enemy running speed
     public float enemyMinSpeed = 2.0f;
     public float enemyMaxSpeed = 6.0f;
     private float enemySpeed;
 
+    // set upper and lower limit for jump height
     public float enemyMinJumpForce = 75.0f;
     public float enemyMaxJumpForce = 200.0f;
     private float enemyJump;
 
+    // set upper and lower values for jumping action, create var for interval until next action
     private float actionInterval;
     public float actionMinInterval = 0.25f;
     public float actionMaxInterval = 0.75f;
@@ -42,7 +44,7 @@ public class EnemyJumpScript : MonoBehaviour
         // set speed and jump force for each instantiated enemy object
         enemySpeed = Random.Range(enemyMinSpeed, enemyMaxSpeed);
         enemyJump = Random.Range(enemyMinJumpForce, enemyMaxJumpForce);
-        // Debug.Log(enemyJump);
+
     }
 
     // Update is called once per frame
