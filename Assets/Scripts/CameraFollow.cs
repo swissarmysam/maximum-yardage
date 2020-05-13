@@ -6,7 +6,8 @@ public class CameraFollow : MonoBehaviour
 {
 
     // player object and var to store distance between camera and player
-    public GameObject targetObj;
+    [SerializeField]
+    private GameObject targetObj;
     private float distToTarget;
 
     // Start is called before the first frame update

@@ -6,23 +6,32 @@ public class GeneratorScript : MonoBehaviour
 {
 
     // array will store prefabs
-    public GameObject[] availableRooms;
+    [SerializeField]
+    private GameObject[] availableRooms;
     // list will store instanced rooms to see if more rooms need to be added
-    public List<GameObject> currentRooms;
+    [SerializeField]
+    private List<GameObject> currentRooms;
+    // store scren width for checking positions
     private float screenWidth;
 
     // array for storing objects that can be generated - enemies, bucks and PUPs
-    public GameObject[] availableObjects;
+    [SerializeField]
+    private GameObject[] availableObjects;
     // list will store instanced objects
-    public List<GameObject> objects;
+    [SerializeField]
+    private List<GameObject> objects;
 
     // used to control distance range between objects
-    public float objectsMinDistance = 5.0f;
-    public float objectsMaxDistance = 10.0f;
+    [SerializeField]
+    private float objectsMinDistance = 5.0f;
+    [SerializeField]
+    private float objectsMaxDistance = 10.0f;
 
     // used to set min or max height of the object
-    public float objectsMinY = -1.4f;
-    public float objectsMaxY = 1.4f;
+    [SerializeField]
+    private float objectsMinY = -1.4f;
+    [SerializeField]
+    private float objectsMaxY = 1.4f;
 
     // Start is called before the first frame update
     void Start()

@@ -11,7 +11,10 @@ public class PreferencesScript : MonoBehaviour
    
     public void SetSoundFxPreference()
     {
+        // get player prefs key
         string toggle = PlayerPrefs.GetString("fxStatus");
+
+        // toggle between on and off
         if (toggle == "off")
         {
             PlayerPrefs.SetString("fxStatus", "on");
@@ -24,7 +27,10 @@ public class PreferencesScript : MonoBehaviour
 
     public void SetMusicPreference()
     {
+        // get player prefs key
         string toggle = PlayerPrefs.GetString("musicStatus");
+
+        // toggle between on and off
         if(toggle == "off")
         {
             PlayerPrefs.SetString("musicStatus", "on");
@@ -37,6 +43,7 @@ public class PreferencesScript : MonoBehaviour
 
     public void ResetHiscore()
     {
+        // set the hiscore to 0
         PlayerPrefs.SetFloat("hiscore", 0f);
     }
 }

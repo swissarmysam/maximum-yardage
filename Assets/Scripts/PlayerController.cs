@@ -38,49 +38,68 @@ public class PlayerController : MonoBehaviour
 
     // variables for groundCheck for animation transition
     // this will store a reference to the groundCheck child object
-    public Transform groundCheckTransform;
+    [SerializeField]
+    private Transform groundCheckTransform;
+
+    // flag to check if player is grounded
     private bool isGrounded;
+
     // this will store the Layer which is defined as ground (floor)
-    public LayerMask groundCheckLayerMask;
+    [SerializeField]
+    private LayerMask groundCheckLayerMask;
+
     // this will be a reference to the animator component
     private Animator playerAnimator;
 
-    // bool var for stunned status
+    // bool flag for stunned status
     private bool isStunned = false;
 
     // scrolling background
-    public ParallaxScroll parallax;
+    [SerializeField]
+    private ParallaxScroll parallax;
 
-    // variables to track and display score
+    // variables to track and display score and modify score value
     [SerializeField]
     private float yardsRun = 0;
     [SerializeField]
     private float multiplier = 2.0f;
-    public Text yardsRunLabel;
+
+    [SerializeField]
+    private Text yardsRunLabel;
 
     // variables to store stats
     private uint jumps = 0;
     private uint slides = 0;
 
-    // score property so that score can be passed to ScoreScript for storage
+    // score property so that score can be passed to ScoreScript for storage - needs to be public for access
     public float YardsRun 
     { 
         get { return yardsRun; }
     }
 
     // get hiscore to display at end of game
-    public float hiscore;
+    [SerializeField]
+    private float hiscore;
 
     // get buttons to restart game after stunned and return to main menu
-    public Button restartGameBtn;
-    public Button mainMenuBtn;
-    public Button quitBtn;
-    public Image statsPanel;
-    public Text maxYards;
-    public Text bestYardsText;
-    public Text slidesText;
-    public Text jumpsText;
-    public Text messageText;
+    [SerializeField]
+    private Button restartGameBtn;
+    [SerializeField]
+    private Button mainMenuBtn;
+    [SerializeField]
+    private Button quitBtn;
+    [SerializeField]
+    private Image statsPanel;
+    [SerializeField]
+    private Text maxYards;
+    [SerializeField]
+    private Text bestYardsText;
+    [SerializeField]
+    private Text slidesText;
+    [SerializeField]
+    private Text jumpsText;
+    [SerializeField]
+    private Text messageText;
 
     // screen width for input check
     private float screenWidth;
@@ -116,7 +135,9 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         bool inputDetected = Input.GetButtonDown("Fire1");
+        // is input on left side of screen ? true 
         bool jumpDetected = Input.mousePosition.x < screenWidth;
+        // is input on right side of screen ? true
         bool slideDetected = Input.mousePosition.x > screenWidth;
 
         // whilst the player is alive - increment counters

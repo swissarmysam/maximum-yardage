@@ -9,16 +9,19 @@ public class ParallaxScroll : MonoBehaviour
     /// </summary>
 
     // the parallax background layers
-    public Renderer background;
-    public Renderer midground;
-    public Renderer foreground;
+    [SerializeField]
+    private Renderer background;
+    [SerializeField]
+    private Renderer midground;
+    [SerializeField]
+    private Renderer foreground;
 
     // set scrolling speeds for each layer
-    public float backgroundSpeed = 0.02f;
-    public float midgroundSpeed = 0.04f;
-    public float foregroundSpeed = 0.06f;
+    private float backgroundSpeed = 0.02f;
+    private float midgroundSpeed = 0.04f;
+    private float foregroundSpeed = 0.06f;
 
-    // set by player position in PlayerController script
+    // set by player position in PlayerController script - needs to be public for access from PlayerController
     public float offset = 0.0f;
 
     // Update is called once per frame

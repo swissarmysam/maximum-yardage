@@ -5,19 +5,25 @@ using UnityEngine;
 public class EnemyJumpScript : MonoBehaviour
 {
     // set upper and lower limit for enemy running speed
-    public float enemyMinSpeed = 2.0f;
-    public float enemyMaxSpeed = 6.0f;
+    [SerializeField]
+    private float enemyMinSpeed = 2.0f;
+    [SerializeField]
+    private float enemyMaxSpeed = 6.0f;
     private float enemySpeed;
 
     // set upper and lower limit for jump height
-    public float enemyMinJumpForce = 75.0f;
-    public float enemyMaxJumpForce = 200.0f;
+    [SerializeField]
+    private float enemyMinJumpForce = 75.0f;
+    [SerializeField]
+    private float enemyMaxJumpForce = 200.0f;
     private float enemyJump;
 
     // set upper and lower values for jumping action, create var for interval until next action
     private float actionInterval;
-    public float actionMinInterval = 0.25f;
-    public float actionMaxInterval = 0.75f;
+    [SerializeField]
+    private float actionMinInterval = 0.25f;
+    [SerializeField]
+    private float actionMaxInterval = 0.75f;
     private float timeUntilNextAction;
 
     // flag variable used to control jump state and animator
