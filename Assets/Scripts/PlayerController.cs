@@ -190,12 +190,13 @@ public class PlayerController : MonoBehaviour
                 playerAudio.PlayOneShot(jump, 0.5f);
             }
 
-
             // limit the amount of velocity added to the jump
-            if(playerRigidBody.velocity.y <= 8)
+            if (playerRigidBody.velocity.y <= 8)
             {
                 playerRigidBody.AddForce(new Vector2(0, jumpForce));
             }
+
+         
         }
 
         if (slideActive && isGrounded && !jumpActive)
@@ -208,8 +209,12 @@ public class PlayerController : MonoBehaviour
 
             // set size of collider whilst sliding
             playerAnimator.SetBool("isSliding", true);
-            playerCollider.size = new Vector2(0.87f, 0.41f);
-            playerCollider.offset = new Vector2(0f, -0.88f);
+
+            if(playerAnimator.GetBool("isSliding") == true)
+            {
+                playerCollider.size = new Vector2(0.87f, 0.41f);
+                playerCollider.offset = new Vector2(0f, -0.88f);
+            }
         } 
         else
         {
@@ -226,7 +231,7 @@ public class PlayerController : MonoBehaviour
                 playerAudio.Play();
             }
 
-            // gradually increaase speed of player movement
+            // gradually increase speed of player movement
             Vector2 newVelocity = playerRigidBody.velocity;
             if(forwardSpeed < maxSpeed)
             {
@@ -243,6 +248,12 @@ public class PlayerController : MonoBehaviour
                 playerCollider.offset = new Vector2(0f, -0.25f);
             }
 
+            // set the collider size when jump animation is playing
+            if (playerAnimator.GetBool("isGrounded") == false)
+            {
+                playerCollider.offset = new Vector2(0.15f, 0.26f);
+                playerCollider.size = new Vector2(0.6f, 0.6f);
+            }
 
             // update yardsRun
             yardsRun += multiplier * Time.deltaTime;
@@ -260,6 +271,7 @@ public class PlayerController : MonoBehaviour
         // if player is dead and on the ground
         if(isStunned && isGrounded)
         {
+
             // make buttons visible and set stats text from var values
             restartGameBtn.gameObject.SetActive(true);
             mainMenuBtn.gameObject.SetActive(true);

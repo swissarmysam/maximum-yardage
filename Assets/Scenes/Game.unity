@@ -1913,9 +1913,6 @@ MonoBehaviour:
   background: {fileID: 1073948697}
   midground: {fileID: 1324427422}
   foreground: {fileID: 1300211784}
-  backgroundSpeed: 0.02
-  midgroundSpeed: 0.04
-  foregroundSpeed: 0.06
   offset: 0
 --- !u!1 &1420603139
 GameObject:
@@ -2247,7 +2244,6 @@ MonoBehaviour:
   jump: {fileID: 8300000, guid: f1890fd3cc6144a4faa271fa9e2e068c, type: 3}
   pain: {fileID: 8300000, guid: 50f6f5b4bca06ca48bda571bba36ffb8, type: 3}
   skid: {fileID: 8300000, guid: 986d237c5f543e342a4d2b6e4b78b283, type: 3}
-  landing: {fileID: 8300000, guid: bf36c75bf118dd7478054ac244f861c9, type: 3}
   groundCheckTransform: {fileID: 409007827}
   groundCheckLayerMask:
     serializedVersion: 2

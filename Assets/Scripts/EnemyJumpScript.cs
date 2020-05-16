@@ -83,8 +83,8 @@ public class EnemyJumpScript : MonoBehaviour
                 enemyRigidBody.velocity = new Vector2(0f, 0f);
 
                 // redefine collider for running animation here
-                enemyCollider.offset = new Vector2(0.15f, 0f);
-                enemyCollider.size = new Vector2(0.6f, 1.6f);
+                enemyCollider.offset = new Vector2(0.15f, 0.21f);
+                enemyCollider.size = new Vector2(0.6f, 1.2f);
             }
             // reset timer
             timeUntilNextAction = actionInterval;
